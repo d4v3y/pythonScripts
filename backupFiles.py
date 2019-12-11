@@ -1,9 +1,7 @@
 import os
-import sys
-import gzip
 import shutil
 
-backupDir = os.path.join(".backup")
+backupDir = ".backup"
 currentDir = os.getcwd()
 
 if not os.path.exists(backupDir) :
@@ -15,7 +13,7 @@ for item in os.listdir(currentDir) :
     destination = os.path.join(backupDir, item)
     
     if os.path.isdir(source) :
-        shutil.copytree(source, destination, symlinks=True, ignore=shutil.ignore_patterns('backup'))
+        shutil.copytree(source, destination, ignore=shutil.ignore_patterns(backupDir))
     else :
         if not os.path.exists(destination) or os.stat(source).st_mtime - os.stat(destination).st_mtime > 1:
                 shutil.copy2(source, destination)
